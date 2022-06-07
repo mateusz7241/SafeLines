@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CurrentLatLon</string>
+    <string name="latitude">DŁUGOŚĆ</string>
+    <string name="longitude">SZEROKOŚĆ</string>
+    <string name="onSecurity">WŁĄCZ OCHRONĘ</string>
+    <string name="compareTo">PORÓWNAJ</string>
+</resources>
