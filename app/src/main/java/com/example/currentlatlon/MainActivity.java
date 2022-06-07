@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                getLocation(view);
             }
         });
+
         compareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,12 +62,6 @@ public class MainActivity extends AppCompatActivity {
             if(gpsTracker.canGetLocation()) {
                 double latitude = gpsTracker.getLatitude();
                 double longitude = gpsTracker.getLongitude();
-//                if(latitude > 50.0068552 && longitude > 22.4651861){ // jesli dlugosc i szerokosc jest ta sama co znacznik
-//                    Toast.makeText(MainActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
-//                    PlayBackgroundSound(view); //otworzenie muzyki
-//                }else{
-//                    StopSound(view);
-//                }
                 tvLatitude.setText(String.valueOf(latitude));
                 tvLongitude.setText(String.valueOf(longitude));
             }else{
@@ -76,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public void compareLatLng(View view){
         double latitutde2 = Double.parseDouble(tvLatitude.getText().toString());
         double longitude2 = Double.parseDouble(tvLongitude.getText().toString());
+
         if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
             Toast.makeText(MainActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
             playBackgroundSound(view);
@@ -90,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"DZIALA3",Toast.LENGTH_SHORT).show();
             playBackgroundSound(view);
         }else{
-           // stopSound(view);
+            //stopSound(view);
         }
     }
 
