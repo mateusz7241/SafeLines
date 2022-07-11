@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CurrentLatLon">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -22,7 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".BackgroundSoundService"
+
+        <service
+            android:name=".BackgroundSoundService"
             tools:ignore="Instantiatable" />
     </application>
 

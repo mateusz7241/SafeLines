@@ -4,4 +4,8 @@
     <string name="longitude">SZEROKOŚĆ</string>
     <string name="onSecurity">WŁĄCZ OCHRONĘ</string>
     <string name="compareTo">PORÓWNAJ</string>
+    <string name="buttonLogin">Zaloguj się</string>
+    <string name="loginEditText">Login</string>
+    <string name="passEditText">Hasło</string>
+    <string name="registerButton">Zarejestruj się</string>
 </resources>

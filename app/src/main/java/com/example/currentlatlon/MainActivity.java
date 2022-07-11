@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GpsTracker gpsTracker;
     private TextView tvLatitude,tvLongitude;
-    private Button bt,compareButton;
+    private Button bt,compareButton,loginButton,registerButton;
     BackgroundSoundService backgroundSoundService;
 
     @SuppressLint("WrongConstant")
@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         tvLongitude = (TextView)findViewById(R.id.longitude);
         bt = findViewById(R.id.bt);
         compareButton = findViewById(R.id.compareButton);
+        loginButton = findViewById(R.id.loginButton);
+        registerButton = findViewById(R.id.registerButton);
 
 
         try {
@@ -52,6 +54,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 compareLatLng(view);
+            }
+        });
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
