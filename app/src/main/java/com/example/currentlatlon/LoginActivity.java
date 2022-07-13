@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button loginButton2;
-    EditText loginEditText,passEditText;
+    private Button loginButton2;
+    private EditText loginEditText,passEditText;
 
 
     @Override

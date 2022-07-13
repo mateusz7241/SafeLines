@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -87,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     public void compareLatLng(View view){
         double latitutde2 = Double.parseDouble(tvLatitude.getText().toString());
         double longitude2 = Double.parseDouble(tvLongitude.getText().toString());
+
 
         if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
             Toast.makeText(MainActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();

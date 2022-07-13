@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 public class BackgroundSoundService extends Service {
-    MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
 
     @Nullable
     @Override
