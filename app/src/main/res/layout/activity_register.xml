@@ -6,33 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
-    <EditText
-        android:id="@+id/registerConfirmPassword"
+    <Button
+        android:id="@+id/registerButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="@string/passEditText2"
-        android:inputType="textPassword"
+        android:layout_marginTop="64dp"
+        android:text="@string/registerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPassword"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <EditText
-        android:id="@+id/registerLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:ems="10"
-        android:hint="@string/loginEditText"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/registerPassword" />
 
     <EditText
         android:id="@+id/registerPassword"
@@ -45,19 +28,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerLogin"
+        app:layout_constraintTop_toBottomOf="@+id/registerEmail"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <Button
-        android:id="@+id/registerButton2"
+    <EditText
+        android:id="@+id/registerFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:text="@string/registerButton"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="@string/registerFullName"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerConfirmPassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/registerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/registerEmail"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerFullName"
+        tools:ignore="TouchTargetSizeCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

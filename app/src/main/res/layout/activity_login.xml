@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <Button
-        android:id="@+id/loginButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:text="@string/buttonLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passEditText" />
-
     <EditText
         android:id="@+id/loginEditText"
         android:layout_width="wrap_content"
@@ -27,21 +16,33 @@
         android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.587"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/loginButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="@string/buttonLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passEditText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/passEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/passEditText"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.587"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginEditText"
         tools:ignore="TouchTargetSizeCheck" />

@@ -9,4 +9,6 @@
     <string name="passEditText">Hasło</string>
     <string name="registerButton">Zarejestruj się</string>
     <string name="passEditText2">Potwierdz Hasło</string>
+    <string name="registerEmail">Email</string>
+    <string name="registerFullName">Full name</string>
 </resources>
