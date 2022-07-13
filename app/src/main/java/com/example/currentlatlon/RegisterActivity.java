@@ -28,11 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(registerLogin.getText().toString().isEmpty() || registerPassword.getText().toString().isEmpty() || registerConfirmPassword.getText().toString().isEmpty()){
                     Toast.makeText(RegisterActivity.this, "Wypełnij wszystkie pola", Toast.LENGTH_SHORT).show();
-                }else if(registerPassword.getText().toString() == registerConfirmPassword.getText().toString() && !(registerLogin.getText().toString().isEmpty())){
-
-                    String login = registerLogin.getText().toString();
-                    String pass = registerPassword.getText().toString();
-
+                }else if(registerLogin.getText().toString().length() > 1 && registerPassword.getText().toString() == registerConfirmPassword.getText().toString()){
+                    Toast.makeText(RegisterActivity.this, "Pomyślnie zarejestrowano", Toast.LENGTH_SHORT).show();
+                    //String login = registerLogin.getText().toString();
+                    //String pass = registerPassword.getText().toString();
                     // mozna wyslac ten login i haslo do bazy danych lokalnej lub firebase
                 }
             }
