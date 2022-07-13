@@ -8,4 +8,5 @@
     <string name="loginEditText">Login</string>
     <string name="passEditText">Hasło</string>
     <string name="registerButton">Zarejestruj się</string>
+    <string name="passEditText2">Potwierdz Hasło</string>
 </resources>

@@ -224,7 +224,7 @@ class GpsTracker extends Service implements LocationListener {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
 
-//        if(distance(lat1,lon1,latitude,longitude) < 0.1){
+//        if(distance(lat1,lon1,latitude,longitude) < 0.04){
 //            Toast.makeText(getApplicationContext(), "Jestes tu gdzie masz być", Toast.LENGTH_SHORT).show();
 //        }
     }
