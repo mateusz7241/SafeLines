@@ -3,7 +3,9 @@ package com.example.currentlatlon;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -92,6 +94,8 @@ public class RegisterActivity extends AppCompatActivity{
                         public void onComplete(@NonNull Task<Void> task) {
                           if(task.isSuccessful()){
                               Toast.makeText(RegisterActivity.this, "Rejestracja przebiegła pomyślnie", Toast.LENGTH_SHORT).show();
+                              Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                              startActivity(intent);
                           }else{
                               Toast.makeText(RegisterActivity.this, "Coś poszło nie tak! Spróbuj ponownie!", Toast.LENGTH_LONG).show();
                           }

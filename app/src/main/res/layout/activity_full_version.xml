@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/greetingTV" />
 
     <TextView
         android:id="@+id/latitude2"
@@ -78,31 +78,31 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="108dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="48dp"
+        android:id="@+id/greetingTV"
+        android:layout_width="186dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/welcomeUser"
         android:textAlignment="center"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/logoutTV"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Button
         android:id="@+id/logoutTV"
-        android:layout_width="112dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="112dp"
+        android:layout_width="124dp"
+        android:layout_height="54dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/logoutTV"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
