@@ -11,4 +11,8 @@
     <string name="passEditText2">Potwierdz Hasło</string>
     <string name="registerEmail">Email</string>
     <string name="registerFullName">Full name</string>
+    <string name="forgotPass">Zapomniałem hasła</string>
+    <string name="addNewMarker">Dodaj nowy punkt</string>
+    <string name="welcomeUser">Witaj</string>
+    <string name="logoutTV">Wyloguj się</string>
 </resources>

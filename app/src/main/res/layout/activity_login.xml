@@ -7,12 +7,12 @@
     tools:context=".LoginActivity">
 
     <EditText
-        android:id="@+id/loginEditText"
+        android:id="@+id/emailEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
         android:ems="10"
-        android:hint="@string/loginEditText"
+        android:hint="@string/registerEmail"
         android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,16 +22,14 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <Button
-        android:id="@+id/loginButton2"
+        android:id="@+id/signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="40dp"
         android:text="@string/buttonLogin"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passEditText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/passEditText" />
 
     <EditText
         android:id="@+id/passEditText"
@@ -44,7 +42,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEditText"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/registerTV"
+        android:layout_width="144dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="52dp"
+        android:text="@string/registerButton"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signIn" />
+
+    <TextView
+        android:id="@+id/forgotPass"
+        android:layout_width="144dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/forgotPass"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/registerTV"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
