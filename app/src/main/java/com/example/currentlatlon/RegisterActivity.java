@@ -93,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity{
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                           if(task.isSuccessful()){
-                              Toast.makeText(RegisterActivity.this, "Rejestracja przebiegła pomyślnie", Toast.LENGTH_SHORT).show();
+                              Toast.makeText(RegisterActivity.this, "Rejestracja przebiegła pomyślnie", Toast.LENGTH_LONG).show();
                               Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                               startActivity(intent);
                           }else{

@@ -16,4 +16,6 @@
     <string name="welcomeUser">Witaj</string>
     <string name="logoutTV">Wyloguj się</string>
     <string name="resetPassword">Resetuj hasło</string>
+    <string name="addNewPoint">Dodaj punkt</string>
+    <string name="giveLatLng">Podaj dlugość i szerokość</string>
 </resources>

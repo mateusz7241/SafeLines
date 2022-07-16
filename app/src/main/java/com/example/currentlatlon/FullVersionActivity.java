@@ -4,16 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,14 +21,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 public class FullVersionActivity extends AppCompatActivity {
 
     private Button onSecureButton,pointButton,logoutTV;
     private TextView latitude2,longitude2;
     private GpsTracker gpsTracker;
     BackgroundSoundService backgroundSoundService2;
+
 
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -68,6 +66,7 @@ public class FullVersionActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             Thread.sleep(500);
+                           // getLocation();
                         } catch( InterruptedException e ) {
                             e.printStackTrace();
                         }
@@ -80,6 +79,10 @@ public class FullVersionActivity extends AppCompatActivity {
                         });
                     }
                 }).start();
+
+                //pobieranie lokalizacji zrobić w ASYNC TASKU koniecznie !!!
+
+
 
 
 
@@ -100,12 +103,14 @@ public class FullVersionActivity extends AppCompatActivity {
         logoutTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(FullVersionActivity.this,LoginActivity.class);
                 startActivity(intent);
+
             }
         });
 
-        //łączenie z bazda danych
+        //łączenie z baza danych
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         userID = user.getUid();
