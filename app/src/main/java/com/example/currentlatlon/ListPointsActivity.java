@@ -61,6 +61,7 @@ public class ListPointsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!LatLngEditText.getText().toString().isEmpty()){
                     locationInfo.add(LatLngEditText.getText().toString());
+                    Collections.addAll(locationInfo,LatLngEditText.getText().toString());
                     listPoints.invalidateViews();
                     LatLngEditText.setText("");
                 }

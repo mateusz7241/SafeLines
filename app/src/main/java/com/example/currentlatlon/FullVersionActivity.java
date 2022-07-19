@@ -4,11 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -162,17 +167,9 @@ public class FullVersionActivity extends AppCompatActivity {
         if(latitutdeFV != 50.0068552 && longitudeFV != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
             Toast.makeText(FullVersionActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
             playBackgroundSound(view);
+            vibrateMessages(view);
         }
-        if(latitutdeFV == 50.0078552 && longitudeFV == 22.4751861){
-            Toast.makeText(FullVersionActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-        }else if(latitutdeFV == 50.0168552 && longitudeFV == 22.4754861){
-            Toast.makeText(FullVersionActivity.this,"DZIALA2",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-        }else if(latitutdeFV == 50.0178552 && longitudeFV == 22.4756861){
-            Toast.makeText(FullVersionActivity.this,"DZIALA3",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-        }else{
+        else{
             //stopSound(view);
         }
     }
@@ -184,13 +181,24 @@ public class FullVersionActivity extends AppCompatActivity {
     public void stopSound(View view){
         backgroundSoundService2.onDestroy();
     }
-        private double distance(double lat1,double lon1,double lat2,double lon2){
-        double earthRadius = 6371;
-        double dLat = Math.toRadians(lat2-lat1);
-        double dLon = Math.toRadians(lon2-lon1);
+    public void vibrateMessages(View view){
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        //vibrate to 1000 milisecond
 
-        double sindLat = Math.sin(dLat/2);
-        double sindLon = Math.sin(dLon/2);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            v.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
+        }else{
+            //deprecated in API 30
+            v.vibrate(1000);
+        }
+    }
+    private double distance(double lat1,double lon1,double lat2,double lon2){
+        double earthRadius = 6371; //promien ziemi w Kilometrach
+        double dLat = Math.toRadians(lat2-lat1); //roznica szerokosci
+        double dLon = Math.toRadians(lon2-lon1); //roznica dlugosci
+
+        double sindLat = Math.sin(dLat/2); // sin roznicy szerokosci
+        double sindLon = Math.sin(dLon/2); // sin roznicy dlugosci
 
         double a = Math.pow(sindLat,2) + Math.pow(sindLon,2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
         double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
