@@ -44,7 +44,7 @@ public class ListPointsActivity extends AppCompatActivity {
         listPoints.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                infoTV.setText("Wybrano "+ locationInfo.get(position));
+                infoTV.setText(getString(R.string.listOnClick) +" "+ locationInfo.get(position));
             }
         });
         listPoints.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

@@ -18,4 +18,16 @@
     <string name="resetPassword">Resetuj hasło</string>
     <string name="addNewPoint">Dodaj punkt</string>
     <string name="giveLatLng">Podaj dlugość i szerokość</string>
+
+    <string name="greetingMessage">Witaj</string>
+    <string name="typeEmail">Wpisz adres email</string>
+    <string name="typeEmailConfirm">Wpisz poprawny adres mail</string>
+    <string name="typePassword">Wpisz hasło</string>
+    <string name="typePassword6">Hasło składające się z minimum 6 znaków</string>
+    <string name="checkMailBox">Sprawdz skrzynke pocztową</string>
+    <string name="somethingWasWrong">Coś poszło nie tak, spróbuj ponownie</string>
+    <string name="registerIsComplete">Rejestracja przebiegła pomyślnie!</string>
+    <string name="typeFullName">Wpisz imie i nazwisko</string>
+    <string name="listOnClick">Wybrano</string>
+    <string name="newsSafeLines">Uwaga zbliżasz się do pasów</string>
 </resources>

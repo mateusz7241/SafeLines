@@ -124,7 +124,7 @@ public class FullVersionActivity extends AppCompatActivity {
                 if(userProfile != null){
                     String fullName = userProfile.fullName;
 
-                    greetingTV.setText("Witaj " + fullName + "!");
+                    greetingTV.setText(getString(R.string.greetingMessage) + " " + fullName + "!");
                 }
             }
 
@@ -154,6 +154,10 @@ public class FullVersionActivity extends AppCompatActivity {
         double latitutdeFV = Double.parseDouble(latitude2.getText().toString());
         double longitudeFV = Double.parseDouble(longitude2.getText().toString());
 
+//        if(distance(latitutdeFV,longitudeFV,lat2,lon2) < 0.1){
+//            Toast.makeText(FullVersionActivity.this,"Jestes kilka metrów przed przejsciem",Toast.LENGTH_LONG).show();
+//        }
+
 
         if(latitutdeFV != 50.0068552 && longitudeFV != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
             Toast.makeText(FullVersionActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
@@ -179,5 +183,18 @@ public class FullVersionActivity extends AppCompatActivity {
     }
     public void stopSound(View view){
         backgroundSoundService2.onDestroy();
+    }
+        private double distance(double lat1,double lon1,double lat2,double lon2){
+        double earthRadius = 6371;
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLon = Math.toRadians(lon2-lon1);
+
+        double sindLat = Math.sin(dLat/2);
+        double sindLon = Math.sin(dLon/2);
+
+        double a = Math.pow(sindLat,2) + Math.pow(sindLon,2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+        double dist = earthRadius * c;
+        return dist;
     }
 }
