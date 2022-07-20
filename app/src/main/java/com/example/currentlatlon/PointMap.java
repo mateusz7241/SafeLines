@@ -16,7 +16,7 @@ public class PointMap {
         this.longitude = longitude;
     }
     public String toString(){
-        return this.name + ": " + "Długość: "+latitude + " Szerokość: " + longitude;
+        return this.name + ":" + "\n" + "Długość: "+ latitude + "\n" +"Szerokość: " + longitude;
     }
 
 }
