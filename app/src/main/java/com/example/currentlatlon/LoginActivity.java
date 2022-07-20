@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forgotPass,registerTV;
     private FirebaseAuth mAuth;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
         forgotPass = findViewById(R.id.forgotPass);
         registerTV = findViewById(R.id.registerTV);
-
         mAuth = FirebaseAuth.getInstance();
 
         registerTV.setOnClickListener(new View.OnClickListener() {

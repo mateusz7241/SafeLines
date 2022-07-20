@@ -56,7 +56,13 @@ public class MainActivity extends AppCompatActivity {
         compareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                compareLatLng(view);
+
+                if(gpsTracker.canGetLocation==false){
+                    Toast.makeText(MainActivity.this,getString(R.string.somethingWasWrong),Toast.LENGTH_SHORT).show();
+                    gpsTracker.showSettingsAlert();
+                }else{
+                    compareLatLng(view);
+                }
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public void getLocation(View view){
         gpsTracker = new GpsTracker(MainActivity.this);

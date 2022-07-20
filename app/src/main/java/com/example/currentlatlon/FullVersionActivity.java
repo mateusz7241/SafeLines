@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class FullVersionActivity extends AppCompatActivity {
 
     private Button onSecureButton,pointButton,logoutTV;
@@ -159,8 +161,13 @@ public class FullVersionActivity extends AppCompatActivity {
         double latitutdeFV = Double.parseDouble(latitude2.getText().toString());
         double longitudeFV = Double.parseDouble(longitude2.getText().toString());
 
+
+
+
+
 //        if(distance(latitutdeFV,longitudeFV,lat2,lon2) < 0.1){
 //            Toast.makeText(FullVersionActivity.this,"Jestes kilka metrów przed przejsciem",Toast.LENGTH_LONG).show();
+//            vibrateMessages(view);
 //        }
 
 
@@ -204,5 +211,22 @@ public class FullVersionActivity extends AppCompatActivity {
         double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
         double dist = earthRadius * c;
         return dist;
+    }
+
+
+    private void sprawdzLocalizacje(){
+        Double[] lat2 = new Double[100];
+        Double[] lon2 = new Double[100];
+        lat2[0] = 50.20;
+        lon2[0] = 22.12;
+
+
+        for(int i=0; i<lat2.length;i++){
+            for(int j=0;j<lon2.length;j++){
+                if(lat2[i] != lon2[j]){
+                    System.out.println(lat2[i] + " " + lon2[j]);
+                }
+            }
+        }
     }
 }
