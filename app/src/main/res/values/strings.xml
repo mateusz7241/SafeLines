@@ -30,4 +30,8 @@
     <string name="typeFullName">Wpisz imię i nazwisko</string>
     <string name="listOnClick">Wybrano</string>
     <string name="newsSafeLines">Uwaga zbliżasz się do pasów</string>
+
+    <string name="typeLatitude">Wpisz szerokość geograficzna</string>
+    <string name="typeLongitude">Wpisz dlugość geograficzna</string>
+    <string name="typeName">Wpisz nazwę miejsca</string>
 </resources>

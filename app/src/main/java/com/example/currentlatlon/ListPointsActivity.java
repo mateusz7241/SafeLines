@@ -70,17 +70,17 @@ public class ListPointsActivity extends AppCompatActivity {
         String namePoint = nameEditText.getText().toString().trim();
 
         if(latitudeEditText.length() < 0){
-            latitudeEditText.setError("Wpisz dlugosc geograficzna");
+            latitudeEditText.setError(getString(R.string.typeLatitude));
             latitudeEditText.requestFocus();
             return;
         }
         if(longitudeEditText.length() < 0){
-            longitudeEditText.setError("Wpisz szerokosc geograficzna");
+            longitudeEditText.setError(getString(R.string.typeLongitude));
             longitudeEditText.requestFocus();
             return;
         }
         if(namePoint.isEmpty()){
-            nameEditText.setError("Wpisz nazwę miejsca");
+            nameEditText.setError(getString(R.string.typeName));
             nameEditText.requestFocus();
             return;
         }
