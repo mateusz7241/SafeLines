@@ -3,8 +3,7 @@ package com.example.currentlatlon;
 public class PointMap {
 
     public String name;
-    public double latitude,longitude;
-
+    public double latitude,longitude; //szerokosc, dlugosc
 
     PointMap(){
 
@@ -16,7 +15,7 @@ public class PointMap {
         this.longitude = longitude;
     }
     public String toString(){
-        return this.name + ":" + "\n" + "Długość: "+ latitude + "\n" +"Szerokość: " + longitude;
+        return this.name + ":" + "\n" + "Szerokość: "+ latitude + "\n" +"Długość: " + longitude;
     }
 
 }

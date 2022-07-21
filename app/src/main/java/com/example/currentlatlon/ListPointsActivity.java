@@ -69,12 +69,12 @@ public class ListPointsActivity extends AppCompatActivity {
         double lon = Double.parseDouble(longitudeEditText.getText().toString());
         String namePoint = nameEditText.getText().toString().trim();
 
-        if(latitudeEditText.length() < 0){
+        if(lat < -90 || lat > 90){
             latitudeEditText.setError(getString(R.string.typeLatitude));
             latitudeEditText.requestFocus();
             return;
         }
-        if(longitudeEditText.length() < 0){
+        if(lon < -180 || lon > 180){
             longitudeEditText.setError(getString(R.string.typeLongitude));
             longitudeEditText.requestFocus();
             return;

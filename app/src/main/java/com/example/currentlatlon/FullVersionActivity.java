@@ -113,7 +113,7 @@ public class FullVersionActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(FullVersionActivity.this,LoginActivity.class);
                 startActivity(intent);
-
+                Toast.makeText(FullVersionActivity.this, "Pomyślnie wylogowano", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -200,7 +200,7 @@ public class FullVersionActivity extends AppCompatActivity {
         }
     }
     private double distance(double lat1,double lon1,double lat2,double lon2){
-        double earthRadius = 6371; //promien ziemi w Kilometrach
+        double earthRadius = 6371; //promien ziemi w kilometrach
         double dLat = Math.toRadians(lat2-lat1); //roznica szerokosci
         double dLon = Math.toRadians(lon2-lon1); //roznica dlugosci
 

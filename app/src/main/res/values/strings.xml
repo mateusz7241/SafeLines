@@ -1,37 +1,42 @@
 <resources>
     <string name="app_name">Safe Lines</string>
-    <string name="latitude">DŁUGOŚĆ</string>
-    <string name="longitude">SZEROKOŚĆ</string>
-    <string name="onSecurity">WŁĄCZ OCHRONĘ</string>
-    <string name="compareTo">PORÓWNAJ</string>
+    <string name="latitude">Szerokość</string>
+    <string name="longitude">Długość</string>
+    <string name="onSecurity">Włącz ochronę</string>
+    <string name="compareTo">Porównaj</string>
     <string name="buttonLogin">Zaloguj się</string>
     <string name="loginEditText">Login</string>
     <string name="passEditText">Hasło</string>
+
     <string name="registerButton">Zarejestruj się</string>
-    <string name="passEditText2">Potwierdz Hasło</string>
     <string name="registerEmail">Email</string>
     <string name="registerFullName">Full name</string>
+
     <string name="forgotPass">Nie pamiętasz hasła?</string>
     <string name="addNewMarker">Dodaj nowy punkt</string>
-    <string name="welcomeUser">Witaj</string>
     <string name="logoutTV">Wyloguj się</string>
     <string name="resetPassword">Resetuj hasło</string>
     <string name="addNewPoint">Dodaj punkt</string>
     <string name="giveLatLng">Podaj dlugość i szerokość</string>
 
     <string name="greetingMessage">Witaj</string>
+
     <string name="typeEmail">Wpisz adres email</string>
     <string name="typeEmailConfirm">Wpisz poprawny adres email</string>
     <string name="typePassword">Wpisz hasło</string>
     <string name="typePassword6">Hasło składające się z minimum 6 znaków</string>
+    <string name="typeFullName">Wpisz imię i nazwisko</string>
+    <string name="typeLatitude">Wpisz szerokość geograficzna</string>
+    <string name="typeLongitude">Wpisz dlugość geograficzna</string>
+    <string name="typeName">Nazwa miejsca</string>
+
     <string name="checkMailBox">Sprawdź skrzynkę pocztową</string>
     <string name="somethingWasWrong">Coś poszło nie tak, spróbuj ponownie</string>
     <string name="registerIsComplete">Rejestracja przebiegła pomyślnie!</string>
-    <string name="typeFullName">Wpisz imię i nazwisko</string>
-    <string name="listOnClick">Wybrano</string>
     <string name="newsSafeLines">Uwaga zbliżasz się do pasów</string>
 
-    <string name="typeLatitude">Wpisz szerokość geograficzna</string>
-    <string name="typeLongitude">Wpisz dlugość geograficzna</string>
-    <string name="typeName">Wpisz nazwę miejsca</string>
+    <string name="loginImage">loginImage</string>
+    <string name="registerImage">registerImage</string>
+    <string name="forgotImage">forgotImage</string>
+
 </resources>
