@@ -3,16 +3,13 @@ package com.example.currentlatlon;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +44,7 @@ public class ListPointsActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameEditText);
 
 
+
         database = FirebaseDatabase.getInstance();
 
 
@@ -69,6 +67,13 @@ public class ListPointsActivity extends AppCompatActivity {
         double lon = Double.parseDouble(longitudeEditText.getText().toString());
         String namePoint = nameEditText.getText().toString().trim();
 
+
+
+        if(namePoint.isEmpty()){
+            nameEditText.setError(getString(R.string.typeName));
+            nameEditText.requestFocus();
+            return;
+        }
         if(lat < -90 || lat > 90){
             latitudeEditText.setError(getString(R.string.typeLatitude));
             latitudeEditText.requestFocus();
@@ -79,11 +84,7 @@ public class ListPointsActivity extends AppCompatActivity {
             longitudeEditText.requestFocus();
             return;
         }
-        if(namePoint.isEmpty()){
-            nameEditText.setError(getString(R.string.typeName));
-            nameEditText.requestFocus();
-            return;
-        }
+
         reference = database.getReference("Points");
         PointMap pointMap = new PointMap(namePoint,lat,lon);
         reference.push().setValue(pointMap);

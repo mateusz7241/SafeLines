@@ -57,12 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(gpsTracker.canGetLocation==false){
-                    Toast.makeText(MainActivity.this,getString(R.string.somethingWasWrong),Toast.LENGTH_SHORT).show();
-                    gpsTracker.showSettingsAlert();
-                }else{
-                    compareLatLng(view);
-                }
+                compareLatLng(view);
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -93,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
             }
     }
     public void compareLatLng(View view){
-        double latitutde2 = Double.parseDouble(tvLatitude.getText().toString());
-        double longitude2 = Double.parseDouble(tvLongitude.getText().toString());
+        double latitutde2 = gpsTracker.getLatitude();
+        double longitude2 = gpsTracker.getLongitude();
 
-
+//          WERSJA DEMO - TESTOWA
         if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
-            Toast.makeText(MainActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,getString(R.string.newsSafeLines),Toast.LENGTH_SHORT).show();
             playBackgroundSound(view);
             vibrateMessages(view);
         }

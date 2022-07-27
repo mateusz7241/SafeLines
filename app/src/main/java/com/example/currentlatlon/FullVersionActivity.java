@@ -8,12 +8,12 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FullVersionActivity extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class FullVersionActivity extends AppCompatActivity {
     private GpsTracker gpsTracker;
     BackgroundSoundService backgroundSoundService2;
 
+    private Button testButton;
 
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -50,11 +52,20 @@ public class FullVersionActivity extends AppCompatActivity {
         onSecureButton = findViewById(R.id.onSecureButton);
         pointButton = findViewById(R.id.pointButton);
 
+
+        gpsTracker = new GpsTracker(this);
         latitude2 = findViewById(R.id.latitude2);
         longitude2 = findViewById(R.id.longitude2);
 
 
+        testButton = findViewById(R.id.testButton);
 
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                compareLatLng();
+            }
+        });
         final TextView greetingTV = (TextView) findViewById(R.id.greetingTV);
 
         try {
@@ -65,38 +76,24 @@ public class FullVersionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         onSecureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                new Thread(new Runnable() {
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
                     public void run() {
-                        try {
-                            Thread.sleep(500);
-                           // getLocation();
-                        } catch( InterruptedException e ) {
-                            e.printStackTrace();
-                        }
+                        getLocation();
+                        compareLatLng();
+                        handler.postDelayed(this,5000);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                getLocation();
-                            }
-                        });
                     }
-                }).start();
+                },5000);
 
-                //pobieranie lokalizacji zrobić w ASYNC TASKU koniecznie !!!
-
-
-
-
-
-//                    getLocation(view);
-                    //compareLatLng(view); (zrobic porownywanie w wątku thread)
-            }
-        });
+            }});
 
         pointButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,8 +116,11 @@ public class FullVersionActivity extends AppCompatActivity {
 
         //łączenie z baza danych
         user = FirebaseAuth.getInstance().getCurrentUser();
+        //tworzenie referencji do sciezki Users
         reference = FirebaseDatabase.getInstance().getReference("Users");
+        //pobiernaie Uid tzw ID aktualnego usera
         userID = user.getUid();
+
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -130,23 +130,19 @@ public class FullVersionActivity extends AppCompatActivity {
 
                 if(userProfile != null){
                     String fullName = userProfile.fullName;
-
                     greetingTV.setText(getString(R.string.greetingMessage) + " " + fullName + "!");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(FullVersionActivity.this, "Coś poszło nie tak", Toast.LENGTH_LONG).show();
+                Toast.makeText(FullVersionActivity.this, getString(R.string.somethingWasWrong), Toast.LENGTH_LONG).show();
             }
         });
-
-
-
     }
 
     public void getLocation(){
-        gpsTracker = new GpsTracker(FullVersionActivity.this);
+        gpsTracker = new GpsTracker(this);
         if(gpsTracker.canGetLocation()) {
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
@@ -157,46 +153,72 @@ public class FullVersionActivity extends AppCompatActivity {
         }
     }
 
-    public void compareLatLng(View view){
-        double latitutdeFV = Double.parseDouble(latitude2.getText().toString());
-        double longitudeFV = Double.parseDouble(longitude2.getText().toString());
+    public void compareLatLng(){
+        double latitutdeFV = gpsTracker.getLatitude();
+        double longitudeFV = gpsTracker.getLongitude();
+
+        reference = FirebaseDatabase.getInstance().getReference("Points");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                List<PointMap> pointMapList = jsonToMapPointsList(snapshot);
+                for (int i = 0; i < pointMapList.size(); i++) {
+
+                    PointMap currentPoint = pointMapList.get(i);
+                    System.out.println(currentPoint);
+
+                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) < 0.0008){
+                        Toast.makeText(FullVersionActivity.this,"Jestes kilka metrów przed przejsciem",Toast.LENGTH_LONG).show();
+                        playBackgroundSound();
+                        vibrateMessages();
+                    }
+
+                }
 
 
+//                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+//                    String lat2a = snapshot1.child("latitude").getValue().toString();
+//                    String lon2a = snapshot1.child("longitude").getValue().toString();
+//                    //String name = snapshot1.child("name").getValue().toString();
+//                    lat2 = Double.parseDouble(lat2a);
+//                    lon2  = Double.parseDouble(lon2a);
+//
+//
+
+//
+//                    //System.out.println("SZEROKOSC " +lat2 + "\n" ); //wypisuje szerokosci punktow
+//                   // System.out.println("DLUGOSC : " + lon2 + "\n"); //wypisuje dlugosci punktow
+//                }
+
+            }
 
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("DatabaseError",error.getMessage().toString());
+            }
+        });
 
-//        if(distance(latitutdeFV,longitudeFV,lat2,lon2) < 0.1){
-//            Toast.makeText(FullVersionActivity.this,"Jestes kilka metrów przed przejsciem",Toast.LENGTH_LONG).show();
-//            vibrateMessages(view);
-//        }
-
-
-        if(latitutdeFV != 50.0068552 && longitudeFV != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
-            Toast.makeText(FullVersionActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-            vibrateMessages(view);
-        }
-        else{
-            //stopSound(view);
-        }
     }
 
-    public void playBackgroundSound(View view){
+    public void playBackgroundSound(){
         Intent intent = new Intent(FullVersionActivity.this,BackgroundSoundService.class);
         startService(intent);
     }
-    public void stopSound(View view){
+    public void stopSound(){
         backgroundSoundService2.onDestroy();
     }
-    public void vibrateMessages(View view){
+    public void vibrateMessages(){
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         //vibrate to 1000 milisecond
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            v.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
+            v.vibrate(VibrationEffect.createOneShot(1500,VibrationEffect.DEFAULT_AMPLITUDE));
         }else{
             //deprecated in API 30
-            v.vibrate(1000);
+            v.vibrate(1500);
         }
     }
     private double distance(double lat1,double lon1,double lat2,double lon2){
@@ -213,20 +235,20 @@ public class FullVersionActivity extends AppCompatActivity {
         return dist;
     }
 
-
-    private void sprawdzLocalizacje(){
-        Double[] lat2 = new Double[100];
-        Double[] lon2 = new Double[100];
-        lat2[0] = 50.20;
-        lon2[0] = 22.12;
-
-
-        for(int i=0; i<lat2.length;i++){
-            for(int j=0;j<lon2.length;j++){
-                if(lat2[i] != lon2[j]){
-                    System.out.println(lat2[i] + " " + lon2[j]);
-                }
-            }
-        }
+    private PointMap jsonToMapPoint(DataSnapshot snaposhot) {
+        return new PointMap(Double.parseDouble(snaposhot.child("latitude").getValue().toString()),
+                Double.parseDouble(snaposhot.child("longitude").getValue().toString()));
     }
+
+    private List<PointMap> jsonToMapPointsList(DataSnapshot snapshot) {
+        List<PointMap> mapPointList = new ArrayList<>();
+        for (DataSnapshot snapshot1 : snapshot.getChildren()){
+            mapPointList.add(new PointMap(Double.parseDouble(snapshot1.child("latitude").getValue().toString()),
+                    Double.parseDouble(snapshot1.child("longitude").getValue().toString())));
+
+        }
+        return mapPointList;
+    }
+
+
 }
