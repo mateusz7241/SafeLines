@@ -89,7 +89,6 @@ public class FullVersionActivity extends AppCompatActivity {
                         getLocation();
                         compareLatLng();
                         handler.postDelayed(this,5000);
-
                     }
                 },5000);
 
