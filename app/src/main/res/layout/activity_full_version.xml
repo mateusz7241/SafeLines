@@ -11,19 +11,24 @@
         android:layout_width="125dp"
         android:layout_height="86dp"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/addNewMarker"
+        app:layout_constraintBottom_toTopOf="@+id/infoButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longitude2" />
+        app:layout_constraintTop_toBottomOf="@+id/longitude2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/onSecureButton"
         android:layout_width="125dp"
         android:layout_height="86dp"
+        android:layout_marginStart="-10dp"
         android:layout_marginTop="36dp"
         android:text="@string/onSecurity"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/infoButton"
         app:layout_constraintEnd_toStartOf="@+id/pointButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/longitude2" />
 
@@ -106,7 +111,7 @@
         android:id="@+id/infoButton"
         android:layout_width="wrap_content"
         android:layout_height="86dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="@string/information"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
