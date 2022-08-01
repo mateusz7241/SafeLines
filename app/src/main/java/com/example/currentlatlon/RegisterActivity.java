@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity{
     private Button registerButton2;
     private EditText registerFullName,registerEmail,registerPassword;
     private FirebaseAuth mAuth;
+    private ProgressBar progressBar2;
 
 
 
@@ -34,11 +36,12 @@ public class RegisterActivity extends AppCompatActivity{
         registerEmail = findViewById(R.id.registerEmail);
         registerPassword = findViewById(R.id.registerPassword);
         registerButton2 = findViewById(R.id.registerButton2);
+        progressBar2 = findViewById(R.id.progressBar2);
+
+        progressBar2.setVisibility(View.INVISIBLE);
 
         //instancja bazy danych
         mAuth = FirebaseAuth.getInstance();
-
-
 
         registerButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity{
             registerPassword.requestFocus();
             return;
         }
-
+        progressBar2.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

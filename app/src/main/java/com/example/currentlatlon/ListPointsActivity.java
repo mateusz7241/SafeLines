@@ -89,6 +89,8 @@ public class ListPointsActivity extends AppCompatActivity {
         PointMap pointMap = new PointMap(namePoint,lat,lon);
         reference.push().setValue(pointMap);
         Toast.makeText(ListPointsActivity.this, "Dodano punkt", Toast.LENGTH_SHORT).show();
+
+        clearEditTexts();
     }
 
     private void initializeListView() {
@@ -129,6 +131,11 @@ public class ListPointsActivity extends AppCompatActivity {
             }
         });
         listPoints.setAdapter(adapter);
+    }
+    private void clearEditTexts(){
+        latitudeEditText.setText("");
+        longitudeEditText.setText("");
+        nameEditText.setText("");
     }
 
 

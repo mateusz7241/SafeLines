@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
@@ -31,12 +33,10 @@ import java.util.List;
 
 public class FullVersionActivity extends AppCompatActivity {
 
-    private Button onSecureButton,pointButton,logoutTV;
+    private Button onSecureButton,pointButton,logoutTV,infoButton;
     private TextView latitude2,longitude2;
     private GpsTracker gpsTracker;
-    BackgroundSoundService backgroundSoundService2;
-
-    private Button testButton;
+    public BackgroundSoundService backgroundSoundService2;
 
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -51,6 +51,7 @@ public class FullVersionActivity extends AppCompatActivity {
         logoutTV = findViewById(R.id.logoutTV);
         onSecureButton = findViewById(R.id.onSecureButton);
         pointButton = findViewById(R.id.pointButton);
+        infoButton = findViewById(R.id.infoButton);
 
 
         gpsTracker = new GpsTracker(this);
@@ -58,14 +59,6 @@ public class FullVersionActivity extends AppCompatActivity {
         longitude2 = findViewById(R.id.longitude2);
 
 
-        testButton = findViewById(R.id.testButton);
-
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                compareLatLng();
-            }
-        });
         final TextView greetingTV = (TextView) findViewById(R.id.greetingTV);
 
         try {
@@ -75,7 +68,6 @@ public class FullVersionActivity extends AppCompatActivity {
         } catch (Exception e){
             e.printStackTrace();
         }
-
 
         onSecureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +80,9 @@ public class FullVersionActivity extends AppCompatActivity {
                     public void run() {
                         getLocation();
                         compareLatLng();
-                        handler.postDelayed(this,5000);
+                        handler.postDelayed(this,2000);
                     }
-                },5000);
+                },2000);
 
             }});
 
@@ -99,6 +91,13 @@ public class FullVersionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FullVersionActivity.this,ListPointsActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // przekierowac do aktywnosci z informacjami
             }
         });
 
@@ -140,6 +139,17 @@ public class FullVersionActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+    protected void onPause(){
+        super.onPause();
+    }
+    protected void onResume(){
+        super.onResume();
+    }
+
     public void getLocation(){
         gpsTracker = new GpsTracker(this);
         if(gpsTracker.canGetLocation()) {
@@ -166,15 +176,17 @@ public class FullVersionActivity extends AppCompatActivity {
                 for (int i = 0; i < pointMapList.size(); i++) {
 
                     PointMap currentPoint = pointMapList.get(i);
-                    System.out.println(currentPoint);
 
-                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) < 0.0008){
-                        Toast.makeText(FullVersionActivity.this,"Jestes kilka metrów przed przejsciem",Toast.LENGTH_LONG).show();
+                    if (distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) < 0.0008) {
+                        Toast.makeText(FullVersionActivity.this, "Jestes kilka metrów przed przejsciem", Toast.LENGTH_LONG).show();
                         playBackgroundSound();
                         vibrateMessages();
                     }
-
+//                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) < 0.0003){
+//                        playBackgroundSound();
+//                    }
                 }
+            }
 
 
 //                for (DataSnapshot snapshot1 : snapshot.getChildren()){
@@ -191,12 +203,12 @@ public class FullVersionActivity extends AppCompatActivity {
 //                   // System.out.println("DLUGOSC : " + lon2 + "\n"); //wypisuje dlugosci punktow
 //                }
 
-            }
+
 
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("DatabaseError",error.getMessage().toString());
+                Log.d("DatabaseError",error.getMessage());
             }
         });
 
@@ -214,10 +226,10 @@ public class FullVersionActivity extends AppCompatActivity {
         //vibrate to 1000 milisecond
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            v.vibrate(VibrationEffect.createOneShot(1500,VibrationEffect.DEFAULT_AMPLITUDE));
+            v.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
         }else{
             //deprecated in API 30
-            v.vibrate(1500);
+            v.vibrate(1000);
         }
     }
     private double distance(double lat1,double lon1,double lat2,double lon2){
@@ -234,11 +246,6 @@ public class FullVersionActivity extends AppCompatActivity {
         return dist;
     }
 
-    private PointMap jsonToMapPoint(DataSnapshot snaposhot) {
-        return new PointMap(Double.parseDouble(snaposhot.child("latitude").getValue().toString()),
-                Double.parseDouble(snaposhot.child("longitude").getValue().toString()));
-    }
-
     private List<PointMap> jsonToMapPointsList(DataSnapshot snapshot) {
         List<PointMap> mapPointList = new ArrayList<>();
         for (DataSnapshot snapshot1 : snapshot.getChildren()){
@@ -248,6 +255,4 @@ public class FullVersionActivity extends AppCompatActivity {
         }
         return mapPointList;
     }
-
-
 }

@@ -217,17 +217,16 @@ class GpsTracker extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-        //System.out.println(latitude + " " + longitude);
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        Log.d("Provider Disabled",provider.toString());
+        Log.d("Provider Disabled",provider);
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        Log.d("Provider Enabled",provider.toString());
+        Log.d("Provider Enabled",provider);
     }
 
     @Override

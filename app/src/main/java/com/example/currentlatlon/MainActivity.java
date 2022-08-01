@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
@@ -49,7 +50,15 @@ public class MainActivity extends AppCompatActivity {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               getLocation(view);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getLocation();
+                        handler.postDelayed(this,1000);
+                    }
+                },1000);
             }
         });
 
@@ -57,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                compareLatLng(view);
+                compareLatLng();
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getLocation(View view){
+    public void getLocation(){
         gpsTracker = new GpsTracker(MainActivity.this);
             if(gpsTracker.canGetLocation()) {
                 double latitude = gpsTracker.getLatitude();
@@ -87,29 +96,29 @@ public class MainActivity extends AppCompatActivity {
                 gpsTracker.showSettingsAlert();
             }
     }
-    public void compareLatLng(View view){
+    public void compareLatLng(){
         double latitutde2 = gpsTracker.getLatitude();
         double longitude2 = gpsTracker.getLongitude();
 
 //          WERSJA DEMO - TESTOWA
         if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
             Toast.makeText(MainActivity.this,getString(R.string.newsSafeLines),Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-            vibrateMessages(view);
+            playBackgroundSound();
+            vibrateMessages();
         }
         else{
             //stopSound(view);
         }
     }
 
-    public void playBackgroundSound(View view){
+    public void playBackgroundSound(){
         Intent intent = new Intent(MainActivity.this,BackgroundSoundService.class);
         startService(intent);
     }
-    public void stopSound(View view){
+    public void stopSound(){
         backgroundSoundService.onDestroy();
     }
-    public void vibrateMessages(View view){
+    public void vibrateMessages(){
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         //vibrate to 1000 milisecond
 

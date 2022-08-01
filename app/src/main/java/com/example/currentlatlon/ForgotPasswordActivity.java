@@ -3,6 +3,7 @@ package com.example.currentlatlon;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -64,8 +65,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(ForgotPasswordActivity.this, getString(R.string.checkMailBox), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ForgotPasswordActivity.this,LoginActivity.class);
+                    startActivity(intent);
                 }else{
-                    Toast.makeText(ForgotPasswordActivity.this, getString(R.string.somethingWasWrong), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, getString(R.string.somethingWasWrong), Toast.LENGTH_LONG).show();
                 }
             }
         });

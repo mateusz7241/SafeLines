@@ -38,5 +38,6 @@
     <string name="loginImage">loginImage</string>
     <string name="registerImage">registerImage</string>
     <string name="forgotImage">forgotImage</string>
+    <string name="information">Informacje</string>
 
 </resources>
