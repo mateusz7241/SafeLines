@@ -50,15 +50,7 @@ public class MainActivity extends AppCompatActivity {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getLocation();
-                        handler.postDelayed(this,1000);
-                    }
-                },1000);
+                getLocation();
             }
         });
 
