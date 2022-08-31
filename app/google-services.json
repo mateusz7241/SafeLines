@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "407969231026",
+    "project_id": "safelines-e29c7",
+    "storage_bucket": "safelines-e29c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407969231026:android:97ddfff8df56bd6cdf59ab",
+        "android_client_info": {
+          "package_name": "com.example.currentlatlon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407969231026-bcgd5mebg9mbgg9tu2is9ovrf12mg7nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxUgU09zbsiJ070kCnfIiu3TDYkkXpuak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407969231026-bcgd5mebg9mbgg9tu2is9ovrf12mg7nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
