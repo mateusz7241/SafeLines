@@ -1,7 +1,6 @@
 package com.example.currentlatlon;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
@@ -26,7 +25,7 @@ public class BackgroundSoundService extends Service {
     }
     public int onStartCommand(Intent intent,int flags,int startId){
         mediaPlayer.start();
-        Toast.makeText(getApplicationContext(), "Uwaga zbliżasz się do pasów", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.newsSafeLines), Toast.LENGTH_SHORT).show();
         return startId;
     }
     public void onStart(Intent intent, int startId){}

@@ -3,6 +3,7 @@ package com.example.currentlatlon;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -15,7 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgotPassword extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
 
     private EditText emailReset;
     private Button resetPasswordButton;
@@ -48,12 +49,12 @@ public class ForgotPassword extends AppCompatActivity {
         String email = emailReset.getText().toString().trim();
 
         if(email.isEmpty()){
-            emailReset.setError("Wpisz adres email");
+            emailReset.setError(getString(R.string.typeEmail));
             emailReset.requestFocus();
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailReset.setError("Wpisz poprawny adres mail");
+            emailReset.setError(getString(R.string.typeEmailConfirm));
             emailReset.requestFocus();
             return;
         }
@@ -63,9 +64,11 @@ public class ForgotPassword extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(ForgotPassword.this, "Sprawdz skrzynkę pocztową", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPasswordActivity.this, getString(R.string.checkMailBox), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ForgotPasswordActivity.this,LoginActivity.class);
+                    startActivity(intent);
                 }else{
-                    Toast.makeText(ForgotPassword.this, "Spróbuj ponownie! Coś poszło nie tak", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, getString(R.string.somethingWasWrong), Toast.LENGTH_LONG).show();
                 }
             }
         });

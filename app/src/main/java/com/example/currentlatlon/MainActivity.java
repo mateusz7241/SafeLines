@@ -5,9 +5,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,14 +50,15 @@ public class MainActivity extends AppCompatActivity {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               getLocation(view);
+                getLocation();
             }
         });
 
         compareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                compareLatLng(view);
+
+                compareLatLng();
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -71,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    public void getLocation(View view){
+    public void getLocation(){
         gpsTracker = new GpsTracker(MainActivity.this);
             if(gpsTracker.canGetLocation()) {
                 double latitude = gpsTracker.getLatitude();
@@ -83,34 +88,37 @@ public class MainActivity extends AppCompatActivity {
                 gpsTracker.showSettingsAlert();
             }
     }
-    public void compareLatLng(View view){
-        double latitutde2 = Double.parseDouble(tvLatitude.getText().toString());
-        double longitude2 = Double.parseDouble(tvLongitude.getText().toString());
+    public void compareLatLng(){
+        double latitutde2 = gpsTracker.getLatitude();
+        double longitude2 = gpsTracker.getLongitude();
 
-
+//          WERSJA DEMO - TESTOWA
         if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
-            Toast.makeText(MainActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
+            Toast.makeText(MainActivity.this,getString(R.string.newsSafeLines),Toast.LENGTH_SHORT).show();
+            playBackgroundSound();
+            vibrateMessages();
         }
-        if(latitutde2 == 50.0078552 && longitude2 == 22.4751861){
-            Toast.makeText(MainActivity.this,"DZIALA",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-        }else if(latitutde2 == 50.0168552 && longitude2 == 22.4754861){
-            Toast.makeText(MainActivity.this,"DZIALA2",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-        }else if(latitutde2 == 50.0178552 && longitude2 == 22.4756861){
-            Toast.makeText(MainActivity.this,"DZIALA3",Toast.LENGTH_SHORT).show();
-            playBackgroundSound(view);
-        }else{
+        else{
             //stopSound(view);
         }
     }
 
-    public void playBackgroundSound(View view){
+    public void playBackgroundSound(){
         Intent intent = new Intent(MainActivity.this,BackgroundSoundService.class);
         startService(intent);
     }
-    public void stopSound(View view){
+    public void stopSound(){
         backgroundSoundService.onDestroy();
+    }
+    public void vibrateMessages(){
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        //vibrate to 1000 milisecond
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+            v.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
+        }else{
+            //deprecated in API 30
+            v.vibrate(1000);
+        }
     }
 }

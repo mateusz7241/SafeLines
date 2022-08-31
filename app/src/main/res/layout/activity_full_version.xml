@@ -8,24 +8,29 @@
 
     <Button
         android:id="@+id/pointButton"
-        android:layout_width="128dp"
-        android:layout_height="83dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="56dp"
+        android:layout_width="125dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/addNewMarker"
+        app:layout_constraintBottom_toTopOf="@+id/infoButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/latitude2" />
+        app:layout_constraintTop_toBottomOf="@+id/longitude2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/onSecureButton"
         android:layout_width="125dp"
         android:layout_height="86dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="36dp"
         android:text="@string/onSecurity"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/infoButton"
         app:layout_constraintEnd_toStartOf="@+id/pointButton"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/latitude2" />
+        app:layout_constraintTop_toBottomOf="@+id/longitude2" />
 
     <TextView
         android:id="@+id/textView3"
@@ -48,22 +53,20 @@
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="177dp"
         android:layout_height="43dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="@string/longitude"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longitude2" />
+        app:layout_constraintTop_toBottomOf="@+id/latitude2" />
 
     <TextView
         android:id="@+id/longitude2"
@@ -75,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/greetingTV"
@@ -83,7 +86,6 @@
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/welcomeUser"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/logoutTV"
@@ -104,5 +106,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/infoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="86dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/information"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onSecureButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

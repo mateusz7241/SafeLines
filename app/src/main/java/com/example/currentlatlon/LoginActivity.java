@@ -25,8 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forgotPass,registerTV;
     private FirebaseAuth mAuth;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
 
         forgotPass = findViewById(R.id.forgotPass);
         registerTV = findViewById(R.id.registerTV);
-
         mAuth = FirebaseAuth.getInstance();
 
         registerTV.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,ForgotPassword.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -71,23 +68,23 @@ public class LoginActivity extends AppCompatActivity {
         String password = passEditText.getText().toString().trim();
 
         if(email.isEmpty()){
-            emailEditText.setError("Wpisz email");
+            emailEditText.setError(getString(R.string.typeEmail));
             emailEditText.requestFocus();
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailEditText.setError("Wpisz poprawny adres mail");
+            emailEditText.setError(getString(R.string.typeEmailConfirm));
             emailEditText.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
-            passEditText.setError("Wpisz hasło");
+            passEditText.setError(getString(R.string.typePassword));
             passEditText.requestFocus();
             return;
         }
         if(password.length()<6){
-            passEditText.setError("Hasło składające się z minimum 6 znaków");
+            passEditText.setError(getString(R.string.typePassword6));
             passEditText.requestFocus();
             return;
         }
@@ -102,10 +99,10 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }else{
                         user.sendEmailVerification();
-                        Toast.makeText(LoginActivity.this, "Sprawdz skrzynke pocztową", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, getString(R.string.checkMailBox), Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(LoginActivity.this, "Coś poszło nie tak, spróbuj ponownie", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.somethingWasWrong), Toast.LENGTH_LONG).show();
                 }
             }
         });
