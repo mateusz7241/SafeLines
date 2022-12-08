@@ -3,7 +3,10 @@ package com.example.currentlatlon;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,8 +18,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import Model.PointMap;
 
 public class ListPointsActivity extends AppCompatActivity {
 
@@ -67,8 +73,6 @@ public class ListPointsActivity extends AppCompatActivity {
         double lon = Double.parseDouble(longitudeEditText.getText().toString());
         String namePoint = nameEditText.getText().toString().trim();
 
-
-
         if(namePoint.isEmpty()){
             nameEditText.setError(getString(R.string.typeName));
             nameEditText.requestFocus();
@@ -89,7 +93,6 @@ public class ListPointsActivity extends AppCompatActivity {
         PointMap pointMap = new PointMap(namePoint,lat,lon);
         reference.push().setValue(pointMap);
         Toast.makeText(ListPointsActivity.this, "Dodano punkt", Toast.LENGTH_SHORT).show();
-
         clearEditTexts();
     }
 

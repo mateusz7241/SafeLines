@@ -1,4 +1,4 @@
-package com.example.currentlatlon;
+package Model;
 
 public class PointMap {
 

@@ -5,21 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.AudioFocusRequest;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Model.PointMap;
+import Model.User;
 
 public class FullVersionActivity extends AppCompatActivity {
 
@@ -80,16 +76,23 @@ public class FullVersionActivity extends AppCompatActivity {
 
 
                 Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         getLocation();
-                        compareLatLng();
-                        handler.postDelayed(this,3000);
+                        handler.postDelayed(this,2000);
                     }
-                },3000);
+                });
 
             }});
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                compareLatLng();
+            }
+        };
+        runOnUiThread(runnable);
 
         pointButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +117,6 @@ public class FullVersionActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(FullVersionActivity.this,LoginActivity.class);
                 startActivity(intent);
-                backgroundSoundService2.onDestroy();
                 Toast.makeText(FullVersionActivity.this, "Pomyślnie wylogowano", Toast.LENGTH_SHORT).show();
             }
         });
@@ -145,16 +147,16 @@ public class FullVersionActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-    protected void onPause(){
-        super.onPause();
-    }
-    protected void onResume(){
-        super.onResume();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//    }
+//    protected void onPause(){
+//        super.onPause();
+//    }
+//    protected void onResume(){
+//        super.onResume();
+//    }
 
     public void getLocation(){
         gpsTracker = new GpsTracker(this);
@@ -183,17 +185,18 @@ public class FullVersionActivity extends AppCompatActivity {
 
                     PointMap currentPoint = pointMapList.get(i);
 
-                    if (distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) < 0.0008) {
+                    if (distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) < 0.0008 && distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) > 0) {
                         Toast.makeText(FullVersionActivity.this, "Jestes kilka metrów przed przejsciem", Toast.LENGTH_LONG).show();
                         playBackgroundSound();
+                    }
+                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.0010 && (distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude)< 0.0020)){
                         vibrateMessages();
                     }
-                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.0010){
+                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) <= 0){
+                        stopSound();
                         vibrateCancel();
                     }
-//                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) < 0.0003){
-//                        playBackgroundSound();
-//                    }
+
                 }
             }
 
@@ -203,14 +206,16 @@ public class FullVersionActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public void stopSound(){
+        backgroundSoundService2.onDestroy();
     }
 
     public void playBackgroundSound(){
         Intent intent = new Intent(FullVersionActivity.this,BackgroundSoundService.class);
         startService(intent);
-    }
-    public void stopSound(){
-        backgroundSoundService2.onDestroy();
     }
     public void vibrateMessages(){
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -229,8 +234,8 @@ public class FullVersionActivity extends AppCompatActivity {
     }
     private double distance(double lat1,double lon1,double lat2,double lon2){
         double earthRadius = 6371; //promien ziemi w kilometrach
-        double dLat = Math.toRadians(lat2-lat1); //roznica szerokosci
-        double dLon = Math.toRadians(lon2-lon1); //roznica dlugosci
+        double dLat = Math.toRadians(lat2-lat1); //roznica szerokosci w radianach
+        double dLon = Math.toRadians(lon2-lon1); //roznica dlugosci w radianach
 
         double sindLat = Math.sin(dLat/2); // sin roznicy szerokosci
         double sindLon = Math.sin(dLon/2); // sin roznicy dlugosci

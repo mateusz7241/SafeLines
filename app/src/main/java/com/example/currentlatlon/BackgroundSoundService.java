@@ -20,13 +20,12 @@ public class BackgroundSoundService extends Service {
     public void onCreate(){
         super.onCreate();
         mediaPlayer = MediaPlayer.create(this, R.raw.sound);
-        mediaPlayer.setLooping(false);
+        mediaPlayer.setLooping(true);
         mediaPlayer.setVolume(100,100);
+        mediaPlayer.start();
     }
     public int onStartCommand(Intent intent,int flags,int startId){
-        mediaPlayer.start();
-        Toast.makeText(getApplicationContext(), getString(R.string.newsSafeLines), Toast.LENGTH_SHORT).show();
-        return startId;
+        return START_STICKY;
     }
     public void onStart(Intent intent, int startId){}
     public void onDestroy(){

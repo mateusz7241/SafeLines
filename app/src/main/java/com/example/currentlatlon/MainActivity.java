@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -94,11 +96,12 @@ public class MainActivity extends AppCompatActivity {
 //          WERSJA DEMO - TESTOWA
         if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
             Toast.makeText(MainActivity.this,getString(R.string.newsSafeLines),Toast.LENGTH_SHORT).show();
+
             playBackgroundSound();
             vibrateMessages();
         }
         else{
-            //nie rob nic
+
         }
     }
 
@@ -112,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
     public void vibrateMessages(){
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         //vibrate to 1000 milisecond
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
             v.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
         }else{

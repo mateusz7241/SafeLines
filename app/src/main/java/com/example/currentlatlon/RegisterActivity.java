@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import Model.User;
+
 public class RegisterActivity extends AppCompatActivity{
 
     private Button registerButton2;
