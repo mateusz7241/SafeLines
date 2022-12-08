@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioFocusRequest;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +19,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -59,7 +64,7 @@ public class FullVersionActivity extends AppCompatActivity {
         longitude2 = findViewById(R.id.longitude2);
 
 
-        final TextView greetingTV = (TextView) findViewById(R.id.greetingTV);
+        final TextView greetingTV = findViewById(R.id.greetingTV);
 
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
@@ -80,9 +85,9 @@ public class FullVersionActivity extends AppCompatActivity {
                     public void run() {
                         getLocation();
                         compareLatLng();
-                        handler.postDelayed(this,2000);
+                        handler.postDelayed(this,3000);
                     }
-                },2000);
+                },3000);
 
             }});
 
@@ -97,7 +102,8 @@ public class FullVersionActivity extends AppCompatActivity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // przekierowac do aktywnosci z informacjami
+                Intent intent = new Intent(FullVersionActivity.this,InfoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -108,17 +114,17 @@ public class FullVersionActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(FullVersionActivity.this,LoginActivity.class);
                 startActivity(intent);
+                backgroundSoundService2.onDestroy();
                 Toast.makeText(FullVersionActivity.this, "Pomyślnie wylogowano", Toast.LENGTH_SHORT).show();
             }
         });
 
-        //łączenie z baza danych
+        //łączenie z baza danych aktualnego uzytkownika
         user = FirebaseAuth.getInstance().getCurrentUser();
         //tworzenie referencji do sciezki Users
         reference = FirebaseDatabase.getInstance().getReference("Users");
         //pobiernaie Uid tzw ID aktualnego usera
         userID = user.getUid();
-
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -182,29 +188,14 @@ public class FullVersionActivity extends AppCompatActivity {
                         playBackgroundSound();
                         vibrateMessages();
                     }
+                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.0010){
+                        vibrateCancel();
+                    }
 //                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) < 0.0003){
 //                        playBackgroundSound();
 //                    }
                 }
             }
-
-
-//                for (DataSnapshot snapshot1 : snapshot.getChildren()){
-//                    String lat2a = snapshot1.child("latitude").getValue().toString();
-//                    String lon2a = snapshot1.child("longitude").getValue().toString();
-//                    //String name = snapshot1.child("name").getValue().toString();
-//                    lat2 = Double.parseDouble(lat2a);
-//                    lon2  = Double.parseDouble(lon2a);
-//
-//
-
-//
-//                    //System.out.println("SZEROKOSC " +lat2 + "\n" ); //wypisuje szerokosci punktow
-//                   // System.out.println("DLUGOSC : " + lon2 + "\n"); //wypisuje dlugosci punktow
-//                }
-
-
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -231,6 +222,10 @@ public class FullVersionActivity extends AppCompatActivity {
             //deprecated in API 30
             v.vibrate(1000);
         }
+    }
+    public void vibrateCancel(){
+        Vibrator v1 = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v1.cancel();
     }
     private double distance(double lat1,double lon1,double lat2,double lon2){
         double earthRadius = 6371; //promien ziemi w kilometrach

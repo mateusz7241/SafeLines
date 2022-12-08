@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CurrentLatLon"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".InfoActivity"
+            android:exported="true" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="true" />

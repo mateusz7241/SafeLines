@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvLatitude = (TextView)findViewById(R.id.latitude);
-        tvLongitude = (TextView)findViewById(R.id.longitude);
+        tvLatitude = findViewById(R.id.latitude);
+        tvLongitude = findViewById(R.id.longitude);
         bt = findViewById(R.id.bt);
         compareButton = findViewById(R.id.compareButton);
         loginButton = findViewById(R.id.loginButton);
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         compareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 compareLatLng();
             }
         });
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             vibrateMessages();
         }
         else{
-            //stopSound(view);
+            //nie rob nic
         }
     }
 
