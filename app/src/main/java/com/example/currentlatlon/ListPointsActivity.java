@@ -92,7 +92,7 @@ public class ListPointsActivity extends AppCompatActivity {
         reference = database.getReference("Points");
         PointMap pointMap = new PointMap(namePoint,lat,lon);
         reference.push().setValue(pointMap);
-        Toast.makeText(ListPointsActivity.this, "Dodano punkt", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ListPointsActivity.this, getString(R.string.pointAdded), Toast.LENGTH_SHORT).show();
         clearEditTexts();
     }
 

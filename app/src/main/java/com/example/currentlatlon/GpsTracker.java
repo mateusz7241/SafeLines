@@ -197,7 +197,7 @@ class GpsTracker extends Service implements LocationListener {
         // On pressing Settings button
 //        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
         alertDialog.setPositiveButton("Ustawienia", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
+            public void onClick(DialogInterface dialog,int id) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
             }
@@ -206,12 +206,33 @@ class GpsTracker extends Service implements LocationListener {
         // on pressing cancel button
 //        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
         alertDialog.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
             }
         });
         alertDialog.show();
     }
+//    public void showNetworkSettings(){
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+//        alertDialog.setTitle("Ustawienia sieci");
+//        alertDialog.setMessage("Siec nie jest włączona. Czy chcesz przejsc do menu ustawień sieci");
+//
+//        alertDialog.setPositiveButton("Ustawienia", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int id) {
+//                Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        alertDialog.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int id) {
+//                dialog.cancel();
+//            }
+//        });
+//        alertDialog.show();
+//    }
 
     @Override
     public void onLocationChanged(Location location) {

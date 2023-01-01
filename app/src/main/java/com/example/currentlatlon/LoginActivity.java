@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             passEditText.requestFocus();
             return;
         }
-        if(password.length()<6){
+        if(password.length() < 6){
             passEditText.setError(getString(R.string.typePassword6));
             passEditText.requestFocus();
             return;
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, getString(R.string.checkMailBox), Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(LoginActivity.this, getString(R.string.somethingWasWrong), Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.badLoginData), Toast.LENGTH_LONG).show();
                 }
             }
         });

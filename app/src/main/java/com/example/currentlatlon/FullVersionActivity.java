@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -117,7 +119,7 @@ public class FullVersionActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(FullVersionActivity.this,LoginActivity.class);
                 startActivity(intent);
-                Toast.makeText(FullVersionActivity.this, "Pomyślnie wylogowano", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FullVersionActivity.this, getString(R.string.logutsuccesful), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -157,6 +159,7 @@ public class FullVersionActivity extends AppCompatActivity {
 //    protected void onResume(){
 //        super.onResume();
 //    }
+
 
     public void getLocation(){
         gpsTracker = new GpsTracker(this);
