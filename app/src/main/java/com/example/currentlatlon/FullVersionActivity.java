@@ -189,7 +189,7 @@ public class FullVersionActivity extends AppCompatActivity {
                     PointMap currentPoint = pointMapList.get(i);
 
                     if (distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) < 0.0008 && distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) > 0) {
-                        Toast.makeText(FullVersionActivity.this, "Jestes kilka metrów przed przejsciem", Toast.LENGTH_LONG).show();
+                        Toast.makeText(FullVersionActivity.this, getString(R.string.fivestepsprev), Toast.LENGTH_LONG).show();
                         playBackgroundSound();
                     }
                     if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.0010 && (distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude)< 0.0020)){

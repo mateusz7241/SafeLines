@@ -37,6 +37,7 @@
     <string name="newsSafeLines">Uwaga zbliżasz się do pasów</string>
     <string name="logutsuccesful">Pomyślnie wylogowano</string>
     <string name="pointAdded">Dodano punkt</string>
+    <string name="fivestepsprev">Jestes kilka metrów przed przejściem</string>
 
     <string name="loginImage">loginImage</string>
     <string name="registerImage">registerImage</string>
