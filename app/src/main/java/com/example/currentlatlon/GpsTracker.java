@@ -185,17 +185,9 @@ class GpsTracker extends Service implements LocationListener {
 
     public void showSettingsAlert(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
-        // Setting Dialog Title
-//        alertDialog.setTitle("GPS is settings");
         alertDialog.setTitle("Ustawienia GPS");
-
-        // Setting Dialog Message
-//        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
         alertDialog.setMessage("GPS nie jest włączony. Czy chcesz przejść do menu ustawień?");
 
-        // On pressing Settings button
-//        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
         alertDialog.setPositiveButton("Ustawienia", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int id) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -203,8 +195,6 @@ class GpsTracker extends Service implements LocationListener {
             }
         });
 
-        // on pressing cancel button
-//        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
         alertDialog.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
@@ -212,27 +202,7 @@ class GpsTracker extends Service implements LocationListener {
         });
         alertDialog.show();
     }
-//    public void showNetworkSettings(){
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-//        alertDialog.setTitle("Ustawienia sieci");
-//        alertDialog.setMessage("Siec nie jest włączona. Czy chcesz przejsc do menu ustawień sieci");
-//
-//        alertDialog.setPositiveButton("Ustawienia", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int id) {
-//                Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        alertDialog.setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int id) {
-//                dialog.cancel();
-//            }
-//        });
-//        alertDialog.show();
-//    }
+
 
     @Override
     public void onLocationChanged(Location location) {

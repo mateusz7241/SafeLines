@@ -4,12 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -60,6 +57,9 @@ public class FullVersionActivity extends AppCompatActivity {
         gpsTracker = new GpsTracker(this);
         latitude2 = findViewById(R.id.latitude2);
         longitude2 = findViewById(R.id.longitude2);
+
+        latitude2.setTextIsSelectable(true);
+        longitude2.setTextIsSelectable(true);
 
 
         final TextView greetingTV = findViewById(R.id.greetingTV);
@@ -123,6 +123,17 @@ public class FullVersionActivity extends AppCompatActivity {
             }
         });
 
+        onSecureButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(onSecureButton.isLongClickable() == true){
+                    stopSound();
+                    return true;
+                }
+                return false;
+            }
+        });
+
         //łączenie z baza danych aktualnego uzytkownika
         user = FirebaseAuth.getInstance().getCurrentUser();
         //tworzenie referencji do sciezki Users
@@ -149,16 +160,16 @@ public class FullVersionActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//    }
-//    protected void onPause(){
-//        super.onPause();
-//    }
-//    protected void onResume(){
-//        super.onResume();
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+    protected void onPause(){
+        super.onPause();
+    }
+    protected void onResume(){
+        super.onResume();
+    }
 
 
     public void getLocation(){
@@ -188,14 +199,14 @@ public class FullVersionActivity extends AppCompatActivity {
 
                     PointMap currentPoint = pointMapList.get(i);
 
-                    if (distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) < 0.0008 && distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) > 0) {
+                    if (distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) > 0.004 && distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) <= 0.010) {
                         Toast.makeText(FullVersionActivity.this, getString(R.string.fivestepsprev), Toast.LENGTH_LONG).show();
                         playBackgroundSound();
                     }
-                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.0010 && (distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude)< 0.0020)){
+                    else if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.010 && (distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) <= 0.020)){
                         vibrateMessages();
                     }
-                    if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) <= 0){
+                    else{
                         stopSound();
                         vibrateCancel();
                     }
@@ -213,7 +224,8 @@ public class FullVersionActivity extends AppCompatActivity {
     }
 
     public void stopSound(){
-        backgroundSoundService2.onDestroy();
+       Intent intent = new Intent(this,BackgroundSoundService.class);
+       stopService(intent);
     }
 
     public void playBackgroundSound(){
@@ -225,7 +237,7 @@ public class FullVersionActivity extends AppCompatActivity {
         //vibrate to 1000 milisecond
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
-            v.vibrate(VibrationEffect.createOneShot(1000,VibrationEffect.DEFAULT_AMPLITUDE));
+            v.vibrate(VibrationEffect.createOneShot(2000,VibrationEffect.DEFAULT_AMPLITUDE));
         }else{
             //deprecated in API 30
             v.vibrate(1000);
@@ -251,9 +263,9 @@ public class FullVersionActivity extends AppCompatActivity {
 
     private List<PointMap> jsonToMapPointsList(DataSnapshot snapshot) {
         List<PointMap> mapPointList = new ArrayList<>();
-        for (DataSnapshot snapshot1 : snapshot.getChildren()){
-            mapPointList.add(new PointMap(Double.parseDouble(snapshot1.child("latitude").getValue().toString()),
-                    Double.parseDouble(snapshot1.child("longitude").getValue().toString())));
+        for (DataSnapshot point : snapshot.getChildren()){
+            mapPointList.add(new PointMap(Double.parseDouble(point.child("latitude").getValue().toString()),
+                    Double.parseDouble(point.child("longitude").getValue().toString())));
 
         }
         return mapPointList;

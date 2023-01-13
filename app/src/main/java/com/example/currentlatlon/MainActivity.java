@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 compareLatLng();
+            }
+        });
+        compareButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(compareButton.isLongClickable() == true){
+                    stopSound();
+                    return true;
+                }
+                return false;
             }
         });
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         double longitude2 = gpsTracker.getLongitude();
 
 //          WERSJA DEMO - TESTOWA
-        if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) { // jesli dlugosc i szerokosc jest ta sama co znacznik
+        if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) {
             Toast.makeText(MainActivity.this,getString(R.string.newsSafeLines),Toast.LENGTH_SHORT).show();
 
             playBackgroundSound();
@@ -110,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
     }
     public void stopSound(){
-        backgroundSoundService.onDestroy();
+        Intent stopService = new Intent(this,BackgroundSoundService.class);
+        stopService(stopService);
     }
     public void vibrateMessages(){
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

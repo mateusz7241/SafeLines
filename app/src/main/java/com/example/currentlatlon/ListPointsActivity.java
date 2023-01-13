@@ -97,11 +97,10 @@ public class ListPointsActivity extends AppCompatActivity {
     }
 
     private void initializeListView() {
-        // creating a new array adapter for our list view.
+
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,locationInfoArrayList);
 
-        // below line is used for getting reference
-        // of our Firebase Database.
+
         reference = FirebaseDatabase.getInstance().getReference("Points");
 
         reference.addChildEventListener(new ChildEventListener() {
@@ -140,6 +139,15 @@ public class ListPointsActivity extends AppCompatActivity {
         longitudeEditText.setText("");
         nameEditText.setText("");
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+    protected void onPause(){
+        super.onPause();
+    }
+    protected void onResume(){
+        super.onResume();
+    }
 
 }

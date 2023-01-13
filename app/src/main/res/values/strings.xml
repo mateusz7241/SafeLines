@@ -10,7 +10,7 @@
 
     <string name="registerButton">Zarejestruj się</string>
     <string name="registerEmail">Email</string>
-    <string name="registerFullName">Full name</string>
+    <string name="registerFullName">Nazwa</string>
 
     <string name="forgotPass">Nie pamiętasz hasła?</string>
     <string name="addNewMarker">Dodaj nowy punkt</string>
@@ -34,6 +34,7 @@
     <string name="somethingWasWrong">Coś poszło nie tak, spróbuj ponownie</string>
     <string name="badLoginData">Zły login lub haslo, spróbuj ponownie</string>
     <string name="registerIsComplete">Rejestracja przebiegła pomyślnie!</string>
+    <string name="registerIsNotComplete">Rejestracja nie powiodła się</string>
     <string name="newsSafeLines">Uwaga zbliżasz się do pasów</string>
     <string name="logutsuccesful">Pomyślnie wylogowano</string>
     <string name="pointAdded">Dodano punkt</string>

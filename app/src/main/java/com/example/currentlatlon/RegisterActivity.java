@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity{
 
         progressBar2.setVisibility(View.INVISIBLE);
 
-        //instancja bazy danych
+
         mAuth = FirebaseAuth.getInstance();
 
         registerButton2.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity{
                               Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                               startActivity(intent);
                           }else{
-                              Toast.makeText(RegisterActivity.this, getString(R.string.somethingWasWrong), Toast.LENGTH_LONG).show();
+                              Toast.makeText(RegisterActivity.this, getString(R.string.registerIsNotComplete), Toast.LENGTH_LONG).show();
                           }
                         }
                     });
