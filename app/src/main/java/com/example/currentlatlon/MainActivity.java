@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private GpsTracker gpsTracker;
     private TextView tvLatitude,tvLongitude;
     private Button bt,compareButton,loginButton,registerButton;
-    BackgroundSoundService backgroundSoundService;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -102,13 +101,12 @@ public class MainActivity extends AppCompatActivity {
             }
     }
     public void compareLatLng(){
-        double latitutde2 = gpsTracker.getLatitude();
+        double latitude2 = gpsTracker.getLatitude();
         double longitude2 = gpsTracker.getLongitude();
 
 //          WERSJA DEMO - TESTOWA
-        if(latitutde2 != 50.0068552 && longitude2 != 22.4651861) {
+        if(latitude2 != 50.0068552 && longitude2 != 22.4651861) {
             Toast.makeText(MainActivity.this,getString(R.string.newsSafeLines),Toast.LENGTH_SHORT).show();
-
             playBackgroundSound();
             vibrateMessages();
         }

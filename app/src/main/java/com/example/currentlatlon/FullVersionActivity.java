@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.os.VibratorManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,9 +35,8 @@ import Model.User;
 public class FullVersionActivity extends AppCompatActivity {
 
     private Button onSecureButton,pointButton,logoutTV,infoButton;
-    private TextView latitude2,longitude2;
+    private TextView latitude2,longitude2,distTV;
     private GpsTracker gpsTracker;
-    public BackgroundSoundService backgroundSoundService2;
 
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -57,9 +57,11 @@ public class FullVersionActivity extends AppCompatActivity {
         gpsTracker = new GpsTracker(this);
         latitude2 = findViewById(R.id.latitude2);
         longitude2 = findViewById(R.id.longitude2);
+        distTV = findViewById(R.id.distTV);
 
         latitude2.setTextIsSelectable(true);
         longitude2.setTextIsSelectable(true);
+
 
 
         final TextView greetingTV = findViewById(R.id.greetingTV);
@@ -76,7 +78,6 @@ public class FullVersionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 Handler handler = new Handler();
                 handler.post(new Runnable() {
                     @Override
@@ -85,7 +86,6 @@ public class FullVersionActivity extends AppCompatActivity {
                         handler.postDelayed(this,2000);
                     }
                 });
-
             }});
 
         Runnable runnable = new Runnable() {
@@ -95,6 +95,7 @@ public class FullVersionActivity extends AppCompatActivity {
             }
         };
         runOnUiThread(runnable);
+
 
         pointButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +186,7 @@ public class FullVersionActivity extends AppCompatActivity {
     }
 
     public void compareLatLng(){
-        double latitutdeFV = gpsTracker.getLatitude();
+        double latitudeFV = gpsTracker.getLatitude();
         double longitudeFV = gpsTracker.getLongitude();
 
         reference = FirebaseDatabase.getInstance().getReference("Points");
@@ -196,14 +197,16 @@ public class FullVersionActivity extends AppCompatActivity {
 
                 List<PointMap> pointMapList = jsonToMapPointsList(snapshot);
                 for (int i = 0; i < pointMapList.size(); i++) {
-
                     PointMap currentPoint = pointMapList.get(i);
 
-                    if (distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) > 0.004 && distance(latitutdeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) <= 0.010) {
+                    double dist = distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude);
+                    distTV.setText(String.valueOf(dist));
+
+                    if (distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude)  > 0.004 && distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) <= 0.010) {
                         Toast.makeText(FullVersionActivity.this, getString(R.string.fivestepsprev), Toast.LENGTH_LONG).show();
                         playBackgroundSound();
                     }
-                    else if(distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.010 && (distance(latitutdeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) <= 0.020)){
+                    else if(distance(latitudeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) > 0.010 && (distance(latitudeFV,longitudeFV,currentPoint.latitude,currentPoint.longitude) <= 0.020)){
                         vibrateMessages();
                     }
                     else{
@@ -255,8 +258,8 @@ public class FullVersionActivity extends AppCompatActivity {
         double sindLat = Math.sin(dLat/2); // sin roznicy szerokosci
         double sindLon = Math.sin(dLon/2); // sin roznicy dlugosci
 
-        double a = Math.pow(sindLat,2) + Math.pow(sindLon,2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
-        double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+        double a = Math.pow(sindLat,2) + Math.pow(sindLon,2) * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)); // podniesienie do kwadratu sinusów szerokosci i dlugosci oraz mnozenie przez iloczyc cosinusów szerokości punktów
+        double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a)); // 2-krotny arcus tangens z ilorazem pierwiastkow kwadratowych a i 1-a
         double dist = earthRadius * c;
         return dist;
     }
