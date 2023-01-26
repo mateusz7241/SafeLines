@@ -111,10 +111,10 @@
         android:id="@+id/infoButton"
         android:layout_width="wrap_content"
         android:layout_height="86dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="12dp"
         android:text="@string/information"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/onSecureButton" />
 
@@ -129,5 +129,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/greetingTV"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/removeButton"
+        android:layout_width="125dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="32dp"
+        android:text="Usuń punkt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/infoButton"
+        app:layout_constraintTop_toBottomOf="@+id/pointButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

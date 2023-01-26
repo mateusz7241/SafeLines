@@ -1,5 +1,7 @@
 package Model;
 
+import com.google.firebase.database.DatabaseReference;
+
 public class PointMap {
 
     public String name;
@@ -24,5 +26,4 @@ public class PointMap {
     public String toString(){
         return this.name + ":" + "\n" + "Szerokość: "+ latitude + "\n" +"Długość: " + longitude;
     }
-
 }

@@ -34,7 +34,7 @@ import Model.User;
 
 public class FullVersionActivity extends AppCompatActivity {
 
-    private Button onSecureButton,pointButton,logoutTV,infoButton;
+    private Button onSecureButton,pointButton,logoutTV,infoButton,removeButton;
     private TextView latitude2,longitude2,distTV;
     private GpsTracker gpsTracker;
 
@@ -52,7 +52,9 @@ public class FullVersionActivity extends AppCompatActivity {
         onSecureButton = findViewById(R.id.onSecureButton);
         pointButton = findViewById(R.id.pointButton);
         infoButton = findViewById(R.id.infoButton);
+        removeButton = findViewById(R.id.removeButton);
 
+        removeButton.setVisibility(View.INVISIBLE);
 
         gpsTracker = new GpsTracker(this);
         latitude2 = findViewById(R.id.latitude2);
@@ -61,6 +63,32 @@ public class FullVersionActivity extends AppCompatActivity {
 
         latitude2.setTextIsSelectable(true);
         longitude2.setTextIsSelectable(true);
+
+
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference userRoleRef = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("role");
+
+        userRoleRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String role = snapshot.getValue(String.class);
+                if(role.equals("u")){
+                    removeButton.setVisibility(View.GONE);
+                }else if(role.equals("a")){
+                    removeButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        //System.out.println(userRoleRef);
 
 
 
@@ -73,6 +101,23 @@ public class FullVersionActivity extends AppCompatActivity {
         } catch (Exception e){
             e.printStackTrace();
         }
+
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FullVersionActivity.this,ListPointsRemove.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+
+
+
+
+
 
         onSecureButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,8 +244,7 @@ public class FullVersionActivity extends AppCompatActivity {
                 for (int i = 0; i < pointMapList.size(); i++) {
                     PointMap currentPoint = pointMapList.get(i);
 
-                    double dist = distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude);
-                    distTV.setText(String.valueOf(dist));
+
 
                     if (distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude)  > 0.004 && distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude) <= 0.010) {
                         Toast.makeText(FullVersionActivity.this, getString(R.string.fivestepsprev), Toast.LENGTH_LONG).show();
@@ -213,6 +257,9 @@ public class FullVersionActivity extends AppCompatActivity {
                         stopSound();
                         vibrateCancel();
                     }
+
+                    double dist = distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude);
+                    distTV.setText(String.valueOf(dist));
 
                 }
             }
@@ -229,6 +276,11 @@ public class FullVersionActivity extends AppCompatActivity {
     public void stopSound(){
        Intent intent = new Intent(this,BackgroundSoundService.class);
        stopService(intent);
+    }
+
+    public void stopGpsService(){
+        Intent intent = new Intent(this,GpsTracker.class);
+        stopService(intent);
     }
 
     public void playBackgroundSound(){

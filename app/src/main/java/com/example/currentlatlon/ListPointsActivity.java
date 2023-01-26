@@ -101,7 +101,7 @@ public class ListPointsActivity extends AppCompatActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,locationInfoArrayList);
 
 
-        reference = FirebaseDatabase.getInstance().getReference("Points");
+        reference = database.getReference("Points");
 
         reference.addChildEventListener(new ChildEventListener() {
             @Override
