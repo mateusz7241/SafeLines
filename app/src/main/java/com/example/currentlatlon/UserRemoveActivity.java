@@ -1,7 +1,6 @@
 package com.example.currentlatlon;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,11 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,79 +21,75 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import Model.PointMap;
+import Model.User;
 
-public class ListPointsRemove extends AppCompatActivity {
+public class UserRemoveActivity extends AppCompatActivity {
 
-    private ListView listViewRemove;
-    private TextView info;
+    private ListView userListViewRemove;
+    private TextView infoUser;
+    private EditText nameUser;
+    private Button deleteUser;
     private FirebaseDatabase database;
     private DatabaseReference reference;
-    private Button deletePoint;
-    private EditText namePoint;
     public String objectName;
-    private ArrayList<String> locationInfoArrayList;
+    private ArrayList<String> userInfoArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_points_remove);
+        setContentView(R.layout.activity_user_remove);
 
-        listViewRemove = findViewById(R.id.listViewRemove);
-        info = findViewById(R.id.info);
-        deletePoint = findViewById(R.id.deletePoint);
-        namePoint = findViewById(R.id.namePoint);
+        userListViewRemove = findViewById(R.id.userListViewRemove);
+        infoUser = findViewById(R.id.infoUser);
+        nameUser = findViewById(R.id.nameUser);
+        deleteUser = findViewById(R.id.deleteUser);
 
-        info.setTextIsSelectable(true);
+        infoUser.setTextIsSelectable(true);
         database = FirebaseDatabase.getInstance();
 
-        locationInfoArrayList = new ArrayList<String>();
+        userInfoArrayList = new ArrayList<String>();
 
 
-        deletePoint.setOnClickListener(new View.OnClickListener() {
+
+        deleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reference = database.getReference("Points");
-                //reference.child("-ndsadas").removeValue(); // usuwa punkt o nazwie w child
-                String nazwa = namePoint.getText().toString();
+                reference = database.getReference("Users");
+                //reference.child("-ndsadas").removeValue(); // usuwa uzytkownika o nazwie w child
+                String nazwa = nameUser.getText().toString();
 
                 if(nazwa.length() > 1){
-                    reference.child(nazwa).removeValue(); // usuwa punkt o nazwie w child
-                    info.setText("Usunieto punkt o podanej nazwie: " + nazwa);
+                    reference.child(nazwa).removeValue(); // usuwa uzytkownika o nazwie w child
+                    infoUser.setText("Usunieto użytkownika o podanej nazwie w bazie: " + nazwa);
                 }else{
-                    info.setText("Nie udalo sie usunac punktu");
+                    infoUser.setText("Nie udalo sie usunac użytkownika");
                 }
-
             }
         });
 
-
-        /**
-         listPointsRemove.getItemAtPosition(id) -> zwraca mi obiekt o danym id
-         */
-
-        listViewRemove.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        userListViewRemove.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                info.setText(String.valueOf(listViewRemove.getItemAtPosition(position)));
+                infoUser.setText(String.valueOf(userListViewRemove.getItemAtPosition(position)));
             }
         });
 
         initializeListView();
 
-
     }
 
     private void initializeListView() {
 
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,locationInfoArrayList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,userInfoArrayList);
 
 
-        reference = database.getReference("Points");
+        reference = database.getReference("Users");
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, String s) {
-                String value = snapshot.getValue(PointMap.class).toString();
-                locationInfoArrayList.add(s + "\n" + value);
+                String value = snapshot.getValue(User.class).toString();
+                userInfoArrayList.add(s + "\n" + value);
                 objectName = s;
                 adapter.notifyDataSetChanged();
             }
@@ -111,7 +102,7 @@ public class ListPointsRemove extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                locationInfoArrayList.remove(snapshot.getValue().toString());
+                userInfoArrayList.remove(snapshot.getValue().toString());
                 adapter.notifyDataSetChanged();
             }
 
@@ -125,6 +116,6 @@ public class ListPointsRemove extends AppCompatActivity {
 
             }
         });
-        listViewRemove.setAdapter(adapter);
+        userListViewRemove.setAdapter(adapter);
     }
 }

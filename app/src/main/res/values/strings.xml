@@ -7,6 +7,8 @@
     <string name="buttonLogin">Zaloguj się</string>
     <string name="loginEditText">Login</string>
     <string name="passEditText">Hasło</string>
+    <string name="removePoint">Usuń punkt</string>
+    <string name="removeUser">Usuń użytkownika</string>
 
     <string name="registerButton">Zarejestruj się</string>
     <string name="registerEmail">Email</string>
@@ -31,6 +33,7 @@
     <string name="typeName">Nazwa miejsca</string>
 
     <string name="checkMailBox">Sprawdź skrzynkę pocztową</string>
+    <string name="checkName">Wpisz nazwe z bazy</string>
     <string name="somethingWasWrong">Coś poszło nie tak, spróbuj ponownie</string>
     <string name="badLoginData">Zły login lub haslo, spróbuj ponownie</string>
     <string name="registerIsComplete">Rejestracja przebiegła pomyślnie!</string>

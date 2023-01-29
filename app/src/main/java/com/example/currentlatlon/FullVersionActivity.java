@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.os.VibratorManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,7 +33,7 @@ import Model.User;
 
 public class FullVersionActivity extends AppCompatActivity {
 
-    private Button onSecureButton,pointButton,logoutTV,infoButton,removeButton;
+    private Button onSecureButton,pointButton,logoutTV,infoButton,removePointButton,removeUserButton;
     private TextView latitude2,longitude2,distTV;
     private GpsTracker gpsTracker;
 
@@ -52,9 +51,12 @@ public class FullVersionActivity extends AppCompatActivity {
         onSecureButton = findViewById(R.id.onSecureButton);
         pointButton = findViewById(R.id.pointButton);
         infoButton = findViewById(R.id.infoButton);
-        removeButton = findViewById(R.id.removeButton);
+        removePointButton = findViewById(R.id.removePointButton);
+        removeUserButton = findViewById(R.id.removeUserButton);
 
-        removeButton.setVisibility(View.INVISIBLE);
+
+        removePointButton.setVisibility(View.INVISIBLE);
+        removeUserButton.setVisibility(View.INVISIBLE);
 
         gpsTracker = new GpsTracker(this);
         latitude2 = findViewById(R.id.latitude2);
@@ -74,15 +76,17 @@ public class FullVersionActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String role = snapshot.getValue(String.class);
                 if(role.equals("u")){
-                    removeButton.setVisibility(View.GONE);
+                    removePointButton.setVisibility(View.GONE);
+                    removeUserButton.setVisibility(View.GONE);
                 }else if(role.equals("a")){
-                    removeButton.setVisibility(View.VISIBLE);
+                    removePointButton.setVisibility(View.VISIBLE);
+                    removeUserButton.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.d("Error download role",error.toString());
             }
         });
 
@@ -102,7 +106,7 @@ public class FullVersionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        removeButton.setOnClickListener(new View.OnClickListener() {
+        removePointButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FullVersionActivity.this,ListPointsRemove.class);
@@ -110,6 +114,13 @@ public class FullVersionActivity extends AppCompatActivity {
             }
         });
 
+        removeUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FullVersionActivity.this,UserRemoveActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

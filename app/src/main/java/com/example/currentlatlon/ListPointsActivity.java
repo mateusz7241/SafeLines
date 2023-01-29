@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
 
@@ -90,8 +88,9 @@ public class ListPointsActivity extends AppCompatActivity {
         }
 
         reference = database.getReference("Points");
+        String key = reference.push().getKey();
         PointMap pointMap = new PointMap(namePoint,lat,lon);
-        reference.push().setValue(pointMap);
+        reference.child(key).setValue(pointMap);
         Toast.makeText(ListPointsActivity.this, getString(R.string.pointAdded), Toast.LENGTH_SHORT).show();
         clearEditTexts();
     }
@@ -105,14 +104,14 @@ public class ListPointsActivity extends AppCompatActivity {
 
         reference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String s) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, String s) {
                 String value = snapshot.getValue(PointMap.class).toString();
                 locationInfoArrayList.add(value);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String s) {
+            public void onChildChanged(@NonNull DataSnapshot snapshot, String s) {
                 adapter.notifyDataSetChanged();
             }
 
@@ -123,7 +122,7 @@ public class ListPointsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String s) {
+            public void onChildMoved(@NonNull DataSnapshot snapshot, String s) {
 
             }
 

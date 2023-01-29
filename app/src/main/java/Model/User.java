@@ -13,5 +13,8 @@ public class User {
         this.role = role;
     }
 
+    public String toString(){
+        return "Nazwa: " + fullName + "\n" + "Email: "+ email + "\n" +"Rola: " + role;
+    }
 
 }

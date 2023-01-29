@@ -17,6 +17,9 @@
         android:theme="@style/Theme.CurrentLatLon"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UserRemoveActivity"
+            android:exported="true" />
+        <activity
             android:name=".ListPointsRemove"
             android:exported="true" />
         <activity

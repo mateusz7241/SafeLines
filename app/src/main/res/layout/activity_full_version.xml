@@ -8,27 +8,26 @@
 
     <Button
         android:id="@+id/pointButton"
-        android:layout_width="125dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="117dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/addNewMarker"
-        app:layout_constraintBottom_toTopOf="@+id/infoButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longitude2"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/removePointButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longitude2" />
 
     <Button
         android:id="@+id/onSecureButton"
         android:layout_width="125dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="-10dp"
-        android:layout_marginTop="36dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="96dp"
         android:text="@string/onSecurity"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/infoButton"
-        app:layout_constraintEnd_toStartOf="@+id/pointButton"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/longitude2" />
 
@@ -109,14 +108,17 @@
 
     <Button
         android:id="@+id/infoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="86dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="134dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/information"
         android:textAlignment="center"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onSecureButton" />
+        app:layout_constraintTop_toBottomOf="@+id/pointButton"
+        app:layout_constraintVertical_bias="0.494" />
 
     <TextView
         android:id="@+id/distTV"
@@ -131,15 +133,28 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/removeButton"
+        android:id="@+id/removePointButton"
         android:layout_width="125dp"
-        android:layout_height="86dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="32dp"
-        android:text="Usuń punkt"
+        android:layout_height="82dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/removePoint"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/longitude2" />
+
+    <Button
+        android:id="@+id/removeUserButton"
+        android:layout_width="154dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/removeUser"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
         app:layout_constraintStart_toEndOf="@+id/infoButton"
-        app:layout_constraintTop_toBottomOf="@+id/pointButton" />
+        app:layout_constraintTop_toBottomOf="@+id/pointButton"
+        app:layout_constraintVertical_bias="0.494" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

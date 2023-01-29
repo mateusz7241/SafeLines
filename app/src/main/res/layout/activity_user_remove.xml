@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListPointsRemove">
+    tools:context=".UserRemoveActivity">
 
     <ScrollView
-        android:id="@+id/scrollView3"
+        android:id="@+id/scrollView4"
         android:layout_width="wrap_content"
-        android:layout_height="216dp"
+        android:layout_height="210dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,50 +23,51 @@
             android:orientation="vertical">
 
             <ListView
-                android:id="@+id/listViewRemove"
-                android:layout_width="match_parent"
-                android:layout_height="206dp"
-                android:textAlignment="center" />
+                android:id="@+id/userListViewRemove"
+                android:layout_width="411dp"
+                android:layout_height="198dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp" />
         </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/info"
-        android:layout_width="385dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="104dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.615"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/namePoint" />
-
-    <Button
-        android:id="@+id/deletePoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="@string/removePoint"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info"
-        app:layout_constraintVertical_bias="0.391" />
-
     <EditText
-        android:id="@+id/namePoint"
+        android:id="@+id/nameUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/checkName"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
+
+    <TextView
+        android:id="@+id/infoUser"
+        android:layout_width="385dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="56dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameUser" />
+
+    <Button
+        android:id="@+id/deleteUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="@string/removeUser"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/infoUser"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
