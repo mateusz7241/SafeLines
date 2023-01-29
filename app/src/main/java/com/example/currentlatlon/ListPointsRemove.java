@@ -98,14 +98,14 @@ public class ListPointsRemove extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, String s) {
                 String value = snapshot.getValue(PointMap.class).toString();
-                locationInfoArrayList.add(s + "\n" + value);
-                objectName = s;
+                objectName = snapshot.getKey();
+                locationInfoArrayList.add("id: " + objectName + "\n" + value);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, String s) {
-                objectName = s;
+                objectName = snapshot.getKey();
                 adapter.notifyDataSetChanged();
             }
 

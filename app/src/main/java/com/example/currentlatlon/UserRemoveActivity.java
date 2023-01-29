@@ -89,14 +89,14 @@ public class UserRemoveActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, String s) {
                 String value = snapshot.getValue(User.class).toString();
-                userInfoArrayList.add(s + "\n" + value);
-                objectName = s;
+                objectName = snapshot.getKey();
+                userInfoArrayList.add("id: " + objectName + "\n" + value);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, String s) {
-                objectName = s;
+                objectName = snapshot.getKey();
                 adapter.notifyDataSetChanged();
             }
 

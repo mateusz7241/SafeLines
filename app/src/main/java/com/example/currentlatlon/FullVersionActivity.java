@@ -122,14 +122,6 @@ public class FullVersionActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-
         onSecureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,6 +177,7 @@ public class FullVersionActivity extends AppCompatActivity {
             public boolean onLongClick(View view) {
                 if(onSecureButton.isLongClickable() == true){
                     stopSound();
+                    stopGpsService();
                     return true;
                 }
                 return false;
@@ -266,7 +259,7 @@ public class FullVersionActivity extends AppCompatActivity {
                     }
                     else{
                         stopSound();
-                        vibrateCancel();
+//                        vibrateCancel();
                     }
 
                     double dist = distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude);

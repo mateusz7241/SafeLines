@@ -33,7 +33,7 @@
     <string name="typeName">Nazwa miejsca</string>
 
     <string name="checkMailBox">Sprawdź skrzynkę pocztową</string>
-    <string name="checkName">Wpisz nazwe z bazy</string>
+    <string name="checkName">Wpisz id do usunięcia</string>
     <string name="somethingWasWrong">Coś poszło nie tak, spróbuj ponownie</string>
     <string name="badLoginData">Zły login lub haslo, spróbuj ponownie</string>
     <string name="registerIsComplete">Rejestracja przebiegła pomyślnie!</string>
