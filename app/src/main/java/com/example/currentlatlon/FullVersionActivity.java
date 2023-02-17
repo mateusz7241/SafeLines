@@ -91,11 +91,6 @@ public class FullVersionActivity extends AppCompatActivity {
         });
 
 
-
-        //System.out.println(userRoleRef);
-
-
-
         final TextView greetingTV = findViewById(R.id.greetingTV);
 
         try {
@@ -131,7 +126,7 @@ public class FullVersionActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         getLocation();
-                        handler.postDelayed(this,2000);
+                        handler.postDelayed(this,3000);
                     }
                 });
             }});
@@ -188,7 +183,7 @@ public class FullVersionActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         //tworzenie referencji do sciezki Users
         reference = FirebaseDatabase.getInstance().getReference("Users");
-        //pobiernaie Uid tzw ID aktualnego usera
+        //pobiernaie Uid, czyli ID aktualnego usera
         userID = user.getUid();
 
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -259,7 +254,6 @@ public class FullVersionActivity extends AppCompatActivity {
                     }
                     else{
                         stopSound();
-//                        vibrateCancel();
                     }
 
                     double dist = distance(latitudeFV, longitudeFV, currentPoint.latitude, currentPoint.longitude);

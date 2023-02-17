@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
@@ -38,14 +39,11 @@ class GpsTracker extends Service implements LocationListener {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 1 meter
 
     // The minimum time between updates in milliseconds
-    //private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
-
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 10; //10s
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 5; //5s
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
     String provider;
-
 
 
 
@@ -58,7 +56,6 @@ class GpsTracker extends Service implements LocationListener {
     public Location getLocation () {
             try {
                 locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
-
                 // getting GPS status
                 isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
@@ -67,6 +64,7 @@ class GpsTracker extends Service implements LocationListener {
 
                 if (!isGPSEnabled && !isNetworkEnabled) {
                     // no network provider is enabled
+                    Toast.makeText(this, "Brak połączenia z GPS i internetem, nie można uzyskać lokalizacji", Toast.LENGTH_SHORT).show();
                 } else {
                     this.canGetLocation = true;
                     // First get location from Network Provider
@@ -105,8 +103,7 @@ class GpsTracker extends Service implements LocationListener {
 
                             Log.d("GPS Enabled", "GPS Enabled");
                             if (locationManager != null) {
-                                location = locationManager
-                                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                                 if (location != null) {
                                     latitude = location.getLatitude();
@@ -128,7 +125,7 @@ class GpsTracker extends Service implements LocationListener {
             return location;
         }
 
-    
+
 
 
     /**
@@ -180,7 +177,7 @@ class GpsTracker extends Service implements LocationListener {
 
     /**
      * Function to show settings alert dialog
-     * On pressing Settings button will lauch Settings Options
+     * On pressing Settings button will launch Settings Options
      * */
 
     public void showSettingsAlert(){

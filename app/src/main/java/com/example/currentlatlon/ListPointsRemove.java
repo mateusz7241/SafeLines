@@ -58,11 +58,10 @@ public class ListPointsRemove extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 reference = database.getReference("Points");
-                //reference.child("-ndsadas").removeValue(); // usuwa punkt o nazwie w child
                 String nazwa = namePoint.getText().toString();
 
                 if(nazwa.length() > 1){
-                    reference.child(nazwa).removeValue(); // usuwa punkt o nazwie w child
+                    reference.child(nazwa).removeValue();
                     info.setText("Usunieto punkt o podanej nazwie: " + nazwa);
                 }else{
                     info.setText("Nie udalo sie usunac punktu");
